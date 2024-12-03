@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--<include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+
+	<springProfile name="local">
+		<property name="LOG_PATH"
+			value="/home/user/application/Logs/uppcl/" />
+	</springProfile>
+
+
+	<springProfile name="dev">
+
+		<property name="LOG_PATH"
+			value="/DATA/logs/Uppcl_Mastermanagement" />
+	</springProfile>
+<springProfile name="test">
+
+		<property name="LOG_PATH"
+			value="/DATA/logs/Uppcl_Mastermanagement" />
+	</springProfile>
+<springProfile name="uat">
+
+		<property name="LOG_PATH"
+			value="/DATA/logs/Uppcl_Mastermanagement" />
+	</springProfile>
+	<!-- <springProfile name="dev"> <property name="LOG_PATH" value="/DATA/PROGRAMS/TOMCAT/DEVELOPMENT/UPPCL/UPPCL_Server/logs/" 
+		/> </springProfile> -->
+
+
+
+
+	<springProfile name="stg">
+		<property name="LOG_PATH"
+			value="/home/user/application/Logs/uppcl/" />
+	</springProfile>
+
+	<springProfile name="prod">
+		<property name="LOG_PATH"
+			value="/DATA/logs/Uppcl_Mastermanagement" />
+	</springProfile>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS}|%X{Slf4jMDCFilter.UUID}|
+				[%-5level- %M - %L] %class{5} - %msg%ex{full}%n</pattern>
+
+		</encoder>
+	</appender>
+	<appender name="FILE_ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{dd-MM-yyyy, aux}/error_%d{HH}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS}|%X{Slf4jMDCFilter.UUID}|
+				[%-5level- %M - %L] %class{5} - %msg%ex{full}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ASYNC-FILE-ERROR"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>10000</queueSize>
+		<appender-ref ref="FILE_ERROR" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+
+	<appender name="FILE_INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{dd-MM-yyyy, aux}/info_%d{HH}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS}|%X{Slf4jMDCFilter.UUID}|
+				[%-5level- %M - %L] %class{5} - %msg%ex{full}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ASYNC-FILE-INFO"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>10000</queueSize>
+		<appender-ref ref="FILE_INFO" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+	<appender name="FILE_DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{dd-MM-yyyy, aux}/debug_%d{HH}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS}|%X{Slf4jMDCFilter.UUID}|
+				[%-5level- %M - %L] %class{5} - %msg%ex{full}%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ASYNC-FILE-DEBUG"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>10000</queueSize>
+		<appender-ref ref="FILE_DEBUG" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+	<appender name="FILE_WARN"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_PATH}/%d{dd-MM-yyyy, aux}/warn_%d{HH}.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS}|%X{Slf4jMDCFilter.UUID}|
+				[%-5level- %M - %L] %class{5} - %msg%ex{full}%n</pattern>
+		</encoder>
+	</appender>
+
+
+
+	<appender name="ASYNC-FILE-WARN"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>10000</queueSize>
+		<appender-ref ref="FILE_WARN" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+	<springProfile name="local">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-DEBUG" />
+		</root>
+	</springProfile>
+
+
+	<springProfile name="dev">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-DEBUG" />
+		</root>
+	</springProfile>
+<springProfile name="test">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-DEBUG" />
+		</root>
+	</springProfile>
+	
+	<springProfile name="uat">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-DEBUG" />
+		</root>
+	</springProfile>
+
+	<springProfile name="stg">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-DEBUG" />
+		</root>
+	</springProfile>
+	<springProfile name="prod">
+		<!--<root level="debug"> -->
+		<root level="OFF">
+			<appender-ref ref="ASYNC-FILE-ERROR" />
+			<appender-ref ref="ASYNC-FILE-INFO" />
+			<appender-ref ref="ASYNC-FILE-WARN" />
+		</root>
+	</springProfile>
+
+	<!--<logger name="org.springframework.boot.SpringApplication" level="debug"> -->
+	<!--<appender-ref ref="STDOUT" /> -->
+	<!--</logger> -->
+</configuration>
